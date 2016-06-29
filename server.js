@@ -20,6 +20,7 @@ var expressWs = require('express-ws')(app);
 
 clients=[];  //initially set the clients array empty, it will map user's ws according to roomname
 
+
 mongoose.connect('mongodb://jssaini07chatrooms:jssaini07chatrooms@ds023664.mlab.com:23664/chatrooms');
 
 var room = roomModel.chatRoom;
