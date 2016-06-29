@@ -1,0 +1,70 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, user-scalable=no')
+    link(type='text/css', rel='stylesheet', href='/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.min.css')
+    link(type='text/css', rel='stylesheet', href='/css/chat.css')
+    title Welcome
+  body
+    center
+      #small_screen_menu
+        each d in data
+          #small_screen_user_icon.small.icon
+            #small_screen_user_content.small_content!=d.username
+          #small_screen_group_icon.small.icon
+            #small_screen_group_content.small_content!=d.roomName
+          #small_screen_admin_icon.small.icon
+            #small_screen_admin_content.small_content!=d.roomAdmin
+          #small_screen_members_icon.small.icon
+            #small_screen_members_content.small_content
+              for m in d.roomMembers
+                  .member(class=m)!=m
+          #small_screen_exit_icon.small.icon
+            #small_screen_exit_content.small_content Logout
+          if(d.userType=='admin')
+            #small_screen_delete_icon.small.icon
+              #small_screen_delete_content.small_content Delete Room
+          #tooltip
+      each d in data
+        #group_deleted
+          #group_deleted_message Group Deleted By Admin, You will be redirected to home page
+        #sidebar
+          #user.tab
+            #user_icon.icon
+            #user_content.content!=d.username
+          hr
+          #group.tab
+            #group_icon.icon
+            #group_content.content!=d.roomName
+          hr
+          #admin.tab
+            #admin_icon.icon
+            #admin_content.content!=d.roomAdmin
+          hr
+          #members.tab
+            #members_icon.icon
+            #members_content.content Active Group Members (
+              span!=d.roomMembers.length
+              span )
+            br
+            br
+            #member_names
+              each m in d.roomMembers
+                .member(class=m)!=m
+            hr
+          #exit.tab
+            #exit_icon.icon
+            #exit_content.content Logout
+          if(d.userType=='admin')
+            hr
+            #delete.tab
+              #delete_icon.icon
+              #delete_content.content Delete Group
+        #conversationArea
+          #chatArea
+          #typeArea
+            input(type='text' class='chat_type_area')
+            button(class='btn btn-success send_chat') Send
+  script(src='/javascript/jquery.min.js')
+  script(src='/javascript/chat.js')
