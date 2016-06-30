@@ -43,19 +43,19 @@ app.ws('/',function(ws,req){
   username=req.session.username;
   try {
     clients[roomName][username]=ws;
+    console.log('-----------client updated, web socket updated or a new client joined--------------');
+    console.log(clients);
   } catch(e1){
     clients[roomName]=[];
     clients[roomName][username]=ws;
+    room_clients=clients[roomName];
+    Object.keys(room_clients).forEach(function(key,index){           // send a request to everyone specifying a new user has connected
+      if(key!=username){
+        console.log('accessing '+key);
+        room_clients[key].send(JSON.stringify({'message_type':'new user','username':username}));
+      }
+    });
   }
-  room_clients=clients[roomName];
-  console.log('-----------client updated, web socket updated or a new client joined--------------');
-  console.log(clients);
-  Object.keys(room_clients).forEach(function(key,index){           // send a request to everyone specifying a new user has connected
-    if(key!=username){
-      console.log('accessing '+key);
-      room_clients[key].send(JSON.stringify({'message_type':'new user','username':username}));
-    }
-  });
 });
 
 app.post('/createRoom',createRoom);
