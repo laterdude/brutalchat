@@ -1,14 +1,12 @@
 x="";
 member_names_div=$('#member_names')[0];
 
-connection='';
-
 $(document).ready(function(){
   $('.chat_type_area').focus();
   fetch_older_messages();
   $(document).on('keypress',function(){checkForEnter(event)});
   // create new connection as the page is loaded
-  connection = new WebSocket('ws://'+window.location.hostname+':'+window.location.port);
+  var connection = new WebSocket('ws://'+window.location.hostname+':'+window.location.port);
   $('.small').on('mouseenter',function(e){
     content=this.children[0].innerHTML;
     $('#tooltip')[0].innerHTML=content;
