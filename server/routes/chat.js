@@ -8,7 +8,6 @@
 
  router.get('/chat',function(req,res){
    if(req.session.username==undefined||req.session.username==null) {
-     console.log('you go back');
      res.redirect('/');
    }
    else {

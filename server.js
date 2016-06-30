@@ -39,6 +39,9 @@ parseError = ['A room with same name already exists. Try choosing another room n
 
 // when websocket is intiated it means a new user has connected, clients array has to be updated and a request is to be sent to all current users to update their active users
 app.ws('/',function(ws,req){
+  ws.on('close',function(){
+    console.log('----------------------------Web Socket Connection Closed--------------------------');
+  })
   roomName=req.session.roomName;
   username=req.session.username;
   try {
