@@ -1,12 +1,14 @@
 x="";
 member_names_div=$('#member_names')[0];
 
+connection='';
+
 $(document).ready(function(){
   $('.chat_type_area').focus();
   fetch_older_messages();
   $(document).on('keypress',function(){checkForEnter(event)});
   // create new connection as the page is loaded
-  var connection = new WebSocket('ws://'+window.location.hostname+':'+window.location.port);
+  connection = new WebSocket('ws://'+window.location.hostname+':'+window.location.port);
   $('.small').on('mouseenter',function(e){
     content=this.children[0].innerHTML;
     $('#tooltip')[0].innerHTML=content;
@@ -18,6 +20,9 @@ $(document).ready(function(){
   $('.small').on('mouseleave',function(e){
     $('#tooltip').css({'display':'none'});
   });
+  connection.onclose=function(){
+    connection=new WebSocket('ws://'+window.location.hostname+':'+window.location.port);
+  }
   connection.onmessage=function(msg){
     msg=JSON.parse(msg.data)
     if(msg.message_type=='message'){
