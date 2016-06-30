@@ -14,7 +14,10 @@ router.post('/sendMessage',function(req,res){
   room.findOne({'roomName':roomName},function(err,data){
     current_messages=data.messages;
     current_messages.push({'username':username,'message':message});
+    console.log('---------------------------clients at this time---------------------');
+    console.log(clients);
     Object.keys(room_clients).forEach(function(key,index){
+      console.log('accessing '+key);
       room_clients[key].send(JSON.stringify({'message_type':'message','username':username,'message':message}));
     });
     room.update({'roomName':roomName},{'messages':current_messages},function(){
