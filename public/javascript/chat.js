@@ -1,5 +1,7 @@
 x="";
 member_names_div=$('#member_names')[0];
+pingSocket='';
+mask=-1;
 
 $(document).ready(function(){
   $('.chat_type_area').focus();
@@ -7,6 +9,7 @@ $(document).ready(function(){
   $(document).on('keypress',function(){checkForEnter(event)});
   // create new connection as the page is loaded
   connection = new WebSocket('ws://'+window.location.hostname+':'+window.location.port);
+  pingSocket=setInterval(function(){sendPingRequest();},50000);
   $('.small').on('mouseenter',function(e){
     content=this.children[0].innerHTML;
     $('#tooltip')[0].innerHTML=content;
@@ -18,10 +21,9 @@ $(document).ready(function(){
   $('.small').on('mouseleave',function(e){
     $('#tooltip').css({'display':'none'});
   });
-  connection.onclose=function(){
-    connection=new WebSocket('ws://'+window.location.hostname+':'+window.location.port);
-  }
   connection.onmessage=function(msg){
+    clearInterval(pingSocket);
+    pingSocket=setInterval(function(){sendPingRequest();},50000);
     msg=JSON.parse(msg.data)
     if(msg.message_type=='message'){
       sender=msg.username;
@@ -66,6 +68,10 @@ $(document).ready(function(){
     if(msg.message_type=='room delete'){
       $('#group_deleted').css({'display':'block'});
       setTimeout(function(){log_each_user_out()},1000);
+    }
+    else
+    if(msg.message_type=='ping'){
+      console.log('--------Ping request completed for '+msg.username+' -----------------');
     }
   }
   $('.send_chat').on('click',function(){
@@ -170,5 +176,12 @@ function delete_group() {
   $.ajax({
     type:'POST',
     url:'/deleteGroup',
+  });
+}
+
+function sendPingRequest() {
+  $.ajax({
+    type:'POST',
+    url:'/pingSocket'
   });
 }
