@@ -17,6 +17,9 @@ var exitChat = require('./server/routes/exitChat')
 var logEachUserOut = require('./server/routes/logEachUserOut')
 var deleteGroup = require('./server/routes/deleteGroup')
 var expressWs = require('express-ws')(app);
+var morgan = require('morgan');
+
+app.use(morgan('dev'));
 
 clients=[];  //initially set the clients array empty, it will map user's ws according to roomname
 

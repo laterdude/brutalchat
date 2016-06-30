@@ -20,8 +20,15 @@ router.post('/exitChat',function(req,res){
     }
     room.update({'roomName':roomName},{'roomMembers':current_members},function(err,data){
       room_clients=clients[roomName];
+      console.log('---------------before logout clients---------------');
+      console.log(clients);
+      console.log('---------------------------------------------')
       delete clients[roomName][username];
+      console.log('---------------after logout clients---------------');
+      console.log(clients);
+      console.log('---------------------------------------------')
       Object.keys(room_clients).forEach(function(key,index){
+        console.log('trying to access web socket of '+key);
         room_clients[key].send(JSON.stringify({'message_type':'user exit','username':username}));
       });
       req.session.username=undefined;
