@@ -21,6 +21,9 @@ $(document).ready(function(){
   $('.small').on('mouseleave',function(e){
     $('#tooltip').css({'display':'none'});
   });
+  connection.onclose=function(){
+    leave_group();
+  }
   connection.onmessage=function(msg){
     clearInterval(pingSocket);
     pingSocket=setInterval(function(){sendPingRequest();},50000);

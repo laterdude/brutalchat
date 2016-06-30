@@ -79,6 +79,41 @@ app.get('/',index);
 
 app.get('/chat',chat);
 
+// Inactive users(with closed web socket connections) still residing in the room are removed by the server.
+
+setInterval(function(){removeInactiveUsers()},20000);
+
+function removeInactiveUsers() {
+  console.log('server requested to remove non active users');
+  Object.keys(clients).forEach(function(roomName,index1){
+      Object.keys(clients[roomName]).forEach(function(username,index2) {
+            if(clients[roomName][username].readyState!=1) {
+                room.findOne({'roomName':roomName},function(err,data){
+                  current_members=data.roomMembers;
+                  index=current_members.indexOf(username);
+                  current_members.splice(index,1);
+                  room.update({'roomName':roomName},{'roomMembers':current_members},function(err,data){
+                    room_clients=clients[roomName];
+                    console.log('---------------before logout clients---------------');
+                    console.log(clients);
+                    console.log('---------------------------------------------')
+                    delete clients[roomName][username];
+                    console.log('---------------after logout clients---------------');
+                    console.log(clients);
+                    console.log('---------------------------------------------')
+                    Object.keys(room_clients).forEach(function(key,index){
+                      console.log('trying to access web socket of '+key);
+                      try{
+                        room_clients[key].send(JSON.stringify({'message_type':'user exit','username':username}));
+                      }catch(e){}
+                    });
+                  });
+                });
+          }
+      });
+    });
+  };
+
 var port=process.env.PORT||3030;
 
 app.listen(port);
