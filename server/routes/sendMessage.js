@@ -18,7 +18,9 @@ router.post('/sendMessage',function(req,res){
     console.log(clients);
     Object.keys(room_clients).forEach(function(key,index){
       console.log('accessing '+key);
-      room_clients[key].send(JSON.stringify({'message_type':'message','username':username,'message':message}));
+      try{
+        room_clients[key].send(JSON.stringify({'message_type':'message','username':username,'message':message}));
+      }catch(e){};
     });
     room.update({'roomName':roomName},{'messages':current_messages},function(){
       endResponse();

@@ -29,7 +29,9 @@ router.post('/exitChat',function(req,res){
       console.log('---------------------------------------------')
       Object.keys(room_clients).forEach(function(key,index){
         console.log('trying to access web socket of '+key);
-        room_clients[key].send(JSON.stringify({'message_type':'user exit','username':username}));
+        try{
+          room_clients[key].send(JSON.stringify({'message_type':'user exit','username':username}));
+        }catch(e){}
       });
       req.session.username=undefined;
       req.session.roomName=undefined;
