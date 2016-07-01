@@ -8,7 +8,15 @@ var room = roomModel.chatRoom;
 
 router.post('/fetchMessages',function(req,res){
   room.findOne({'roomName':req.session.roomName},function(err,data){
-    endResponse(data.messages);
+    try {
+      endResponse(data.messages);
+    } catch(e){
+        console.log('--------------Error so not doing it----------------');
+        req.session.username=undefined;
+        req.session.roomName=undefined;
+        req.session.usertype=undefined;
+        res.redirect('/');
+    }
   });
   function endResponse(messages) {
     res.end(JSON.stringify(messages));

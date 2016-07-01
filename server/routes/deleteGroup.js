@@ -13,7 +13,9 @@ router.post('/deleteGroup',function(req,res){
         room_clients=clients[roomName];
         clients[roomName]=[];
         Object.keys(room_clients).forEach(function(key,index){
-          room_clients[key].send(JSON.stringify({'message_type':'room delete'}));
+          try{
+            room_clients[key].send(JSON.stringify({'message_type':'room delete'}));
+          }catch(e){console.log('could not send a delete message to a client')};
         });
     }).then(res.end('room deleted successfully'));;
   }

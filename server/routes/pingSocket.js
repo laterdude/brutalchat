@@ -7,7 +7,7 @@ router.post('/pingSocket',function(req,res){
   username=req.session.username;
   try{
   clients[roomName][username].send(JSON.stringify({'message_type':'ping','username':username}));
-  }catch(e){}; 
+}catch(e){console.log('Could not ping a client')}; 
   res.end('');
 });
 

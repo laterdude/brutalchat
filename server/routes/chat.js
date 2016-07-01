@@ -14,14 +14,21 @@
     data=[{}];
     data[0].username=req.session.username;
      room.findOne({'roomName':req.session.roomName},function(err,d){
-       data[0].roomName=d.roomName;
-       data[0].userType=req.session.usertype;
-       data[0].roomCreationDate=d.roomCreationDate;
-       data[0].roomAdmin=d.roomAdmin;
-       data[0].roomMembers=d.roomMembers;
-       data[0].messages=d.messages;
-       renderChat(data);
-     })
+       try{
+         data[0].roomName=d.roomName;
+         data[0].userType=req.session.usertype;
+         data[0].roomCreationDate=d.roomCreationDate;
+         data[0].roomAdmin=d.roomAdmin;
+         data[0].roomMembers=d.roomMembers;
+         data[0].messages=d.messages;
+         renderChat(data);
+       }catch(e){
+         req.session.username=undefined;
+         req.session.roomName=undefined;
+         req.session.usertype=undefined;
+         res.render('/');
+       }
+     });
      function renderChat(data) {
        res.render('chat',{'data':data});
      };
