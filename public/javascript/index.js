@@ -39,7 +39,7 @@ $(document).ready(function(){
 
 function handleNameInputLimit(e) {
   nameInput=$('#name_input');
-  if(nameInput.text().length>=20&&e.code!='Backspace') {
+  if(nameInput.val().length>=20&&e.code!='Backspace') {
     e.preventDefault();
   }
 }
@@ -65,7 +65,7 @@ function submitUsingEnterKey(e) {
 }
 
 function createRoom() {
-  username=$('#name_input').text();
+  username=$('#name_input').val();
   roomName=$('#create_room_name_input').val();
   roomPassword=$('#create_room_password_input').val();
   adminPassword=$('#admin_pass_input').val();
@@ -87,7 +87,7 @@ function createRoom() {
 }
 
 function joinRoom(action) {
-  username=$('#name_input').text();
+  username=$('#name_input').val();
   roomName=$('#join_room_name_input').val();
   roomPassword=$('#join_room_password_input').val();
   createRoomParameters={username:username,roomName:roomName,roomPassword:roomPassword};

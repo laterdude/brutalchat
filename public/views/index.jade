@@ -5,13 +5,13 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1.0, user-scalable=no')
     link(type='text/css', rel='stylesheet', href='/bootstrap-4.0.0-alpha.2/dist/css/bootstrap.min.css')
     link(type='text/css', rel='stylesheet', href='/css/index.css')
-    title Welcome
+    title Group Chat
   body
     center
       #name
         span
           code Hello,Introduce yourself by telling us your name&nbsp
-               #name_input(contenteditable='true', placeholder='enter your name')
+               input(type='text' id='name_input' placeholder='enter your name')
       #create_room.option
         #create_label
           code Create New Chat Room
@@ -38,7 +38,7 @@ html(lang='en')
         #join_label
           code Join Existing Chat Room
         br
-        #create_room_name_input_label
+        #join_room_name_input_label
           span.decorate Enter Room Name
         input#join_room_name_input(type='text')
         #join_room_password_input_label
