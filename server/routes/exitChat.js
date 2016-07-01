@@ -41,9 +41,6 @@ router.post('/exitChat',function(req,res){
       });
   }catch(e){
       console.log('-------------Error so not doing it-----------');
-      req.session.username=undefined;
-      req.session.roomName=undefined;
-      req.session.usertype=undefined;
       res.redirect('/');
     }
   });

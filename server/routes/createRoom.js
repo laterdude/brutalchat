@@ -27,7 +27,6 @@ router.post('/createRoom',function(req,res){
   }
   else
   if(adminPassword.length==0||adminPassword=="") {
-    console.log('here');
     res.end(parseError[7]);
   }
   else {

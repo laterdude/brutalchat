@@ -1,7 +1,6 @@
 x="";
 member_names_div=$('#member_names')[0];
-pingSocket='';
-mask=-1;
+pingSocket="";
 
 $(document).ready(function(){
   $('.chat_type_area').focus();
@@ -21,9 +20,6 @@ $(document).ready(function(){
   $('.small').on('mouseleave',function(e){
     $('#tooltip').css({'display':'none'});
   });
-  connection.onclose=function(){
-    leave_group();
-  }
   connection.onmessage=function(msg){
     clearInterval(pingSocket);
     pingSocket=setInterval(function(){sendPingRequest();},50000);
@@ -52,20 +48,20 @@ $(document).ready(function(){
         $('#members_content').children()[0].innerHTML=parseInt($('#members_content').children()[0].innerHTML)+1;
         $('#member_names').append(member);
         $('#small_screen_members_content').append($(member).clone());
+        send_message('','<span class="green">'+msg.username+' connected</span>');
       }
-      send_message('','<span class="green">'+msg.username+' connected</span>');
     }
     else
     if(msg.message_type=='user exit'){
       for(i=0;i<$('#member_names').children().length;i++) {
         if($('#member_names').children()[i].innerHTML==msg.username) {
-          $('#members_content').children()[0].innerHTML=parseInt($('#members_content').children()[0].innerHTML)-1;
-          member_names_div.removeChild($('#member_names').children()[i]);
+            $('#members_content').children()[0].innerHTML=parseInt($('#members_content').children()[0].innerHTML)-1;
+            member_names_div.removeChild($('#member_names').children()[i]);
             $('#small_screen_members_content')[0].removeChild($('#small_screen_members_content').children()[i]);
+            send_message('','<span class="red">'+msg.username+' disconnected</span>');
           break;
         }
       }
-      send_message('','<span class="red">'+msg.username+' disconnected</span>');
     }
     else
     if(msg.message_type=='room delete'){
