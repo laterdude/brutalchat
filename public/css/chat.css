@@ -26,13 +26,13 @@ html,body {
   float:left;
   width:30%;
   height:100vh;
-  border-right:1px solid gray;
 }
 
 #conversationArea {
   float:right;
   width:70%;
   height:100vh;
+  background: #f0f0f0;
 }
 
 #small_screen_menu {
@@ -43,7 +43,16 @@ html,body {
 }
 
 #user {
-  margin-top: 40px;
+    margin-top: 4vh;
+}
+
+#user,#group,#admin,#exit,#delete {
+  height:5vh;
+}
+
+#members {
+  max-height:36vh;
+  overflow: auto;
 }
 
 .tab {
@@ -186,15 +195,15 @@ html,body {
 }
 
 #user_box #usermessage {
-  background:cyan;
+  background:#22deb9;
 }
 
 #non_user_box #usermessage {
-  background:orange;
+  background:#ff9800;
 }
 
 #username {
-  display: block;
+  display: inline-block;
 }
 
 #usermessage {
@@ -223,6 +232,22 @@ html,body {
 }
 
 @media screen and (max-width:780px) {
+  #sidebar {
+    display:none;
+  }
+  #small_screen_menu{
+    display: inherit;
+  }
+  #conversationArea {
+    width:100%;
+  }
+  #chatArea {
+    width:100%;
+    height:60vh;
+  }
+}
+
+@media screen and (max-height:400px) {
   #sidebar {
     display:none;
   }

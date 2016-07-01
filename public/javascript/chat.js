@@ -33,6 +33,11 @@ $(document).ready(function(){
     if(msg.message_type=='new user'){
       flag=1;
       new_user_name=msg.username;
+      console.log(new_user_name);
+      console.log('matching with ');
+      for(i=0;i<$('#member_names').children().length;i++) {
+        console.log($('#member_names').children()[i].innerHTML);
+      }
       for(i=0;i<$('#member_names').children().length;i++) {
         if($('#member_names').children()[i].innerHTML==new_user_name) {
           flag=-1;

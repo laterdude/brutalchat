@@ -52,10 +52,8 @@ app.ws('/',function(ws,req){
   console.log('-----------client updated, web socket updated or a new client joined--------------');
   console.log(clients);
   Object.keys(room_clients).forEach(function(key,index){           // send a request to everyone specifying a new user has connected
-    if(key!=username){
       console.log('accessing '+key);
       room_clients[key].send(JSON.stringify({'message_type':'new user','username':username}));
-    }
   });
 });
 
