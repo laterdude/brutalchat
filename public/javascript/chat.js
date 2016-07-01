@@ -53,7 +53,9 @@ $(document).ready(function(){
         $('#members_content').children()[0].innerHTML=parseInt($('#members_content').children()[0].innerHTML)+1;
         $('#member_names').append(member);
         $('#small_screen_members_content').append($(member).clone());
-        send_message('','<span class="green">'+msg.username+' connected</span>');
+        if($('#user_content').text()==$('#member_names').children()[0].innerHTML) {
+          send_message('','<span class="green">'+msg.username+' connected</span>');
+        }
       }
     }
     else
@@ -63,7 +65,9 @@ $(document).ready(function(){
             $('#members_content').children()[0].innerHTML=parseInt($('#members_content').children()[0].innerHTML)-1;
             member_names_div.removeChild($('#member_names').children()[i]);
             $('#small_screen_members_content')[0].removeChild($('#small_screen_members_content').children()[i]);
-            send_message('','<span class="red">'+msg.username+' disconnected</span>');
+            if($('#user_content').text()==$('#member_names').children()[0].innerHTML) {
+              send_message('','<span class="red">'+msg.username+' disconnected</span>');
+            }
           break;
         }
       }
