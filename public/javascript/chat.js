@@ -123,7 +123,13 @@ function display_message(sender,message) {
     box.appendChild(span1);
   }
   span2.id='usermessage';
-  span2.innerHTML=message;
+  if(sender!='')
+  {
+     $(span2).text(message);
+  }
+  else {
+    span2.innerHTML=message;
+  }
   box.appendChild(span2);
   messageBox.appendChild(box);
   $('#chatArea').append(messageBox);
