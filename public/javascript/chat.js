@@ -7,7 +7,7 @@ $(document).ready(function(){
   fetch_older_messages();
   $(document).on('keypress',function(){checkForEnter(event)});
   // create new connection as the page is loaded
-  connection = new WebSocket('ws://'+window.location.hostname+':'+window.location.port);
+  connection = new WebSocket('wss://'+window.location.hostname+':'+window.location.port);
   pingSocket=setInterval(function(){sendPingRequest();},50000);
   $('.small').on('mouseenter',function(e){
     content=this.children[0].innerHTML;
