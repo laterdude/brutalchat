@@ -4,4 +4,4 @@ A chat app created using NodeJS with expressJS as a web framework and websockets
 * express-ws is used to handle web sockets at server side.
 * MongoDB is used to store room credentials and group members.
 
-[<center> <span style='color:#2196f3;font-weight:bold;font-size:20px'>click here for live preview </span> </center>](http://nodegroupchat.herokuapp.com)
+[<center> <span style='color:#2196f3;font-weight:bold;font-size:20px'>click here for live preview </span> </center>](http://brutalchat-laterdude.c9users.io/)
