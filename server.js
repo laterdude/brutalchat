@@ -25,7 +25,7 @@ app.use(morgan('dev'));
 clients=[];  //initially set the clients array empty, it will map user's ws according to roomname
 
 
-mongoose.connect('mongodb://jssaini07chatrooms:jssaini07chatrooms@ds023664.mlab.com:23664/chatrooms');
+mongoose.connect('mongodb://yw:chatapp@ds263317.mlab.com:63317/chatapp');
 
 var room = roomModel.chatRoom;
 
